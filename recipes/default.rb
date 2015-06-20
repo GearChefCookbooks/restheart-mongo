@@ -37,7 +37,14 @@ if `sudo docker ps -a | grep restheart`.size > 0
   execute('remove container') { command "docker rm -f restheart" }
 end
 
-
+docker_container 'restheart' do
+  image 'restheart:latest'
+  container_name 'restheart'
+  port "443:443"
+  link ['mongodb:mongodb']
+  detach true
+  action :run
+end
 
 
 #if `sudo docker ps -a | grep postgres`.size == 0
