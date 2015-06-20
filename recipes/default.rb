@@ -6,11 +6,19 @@ docker_image 'mongo:2.6' do
   cmd_timeout 900
 end
 
-docker_image 'softinstigate/restheart' do
+docker_image 'java:8u45-jre' do
   retries 3
   retry_delay 2
   cmd_timeout 900
 end
+
+docker_container 'mongodb' do
+  image 'mongodb:2.6'
+  detach true
+  port '27017:27017'
+  volume '/var/lib/mongodb:/data/db'
+end
+
 
 #if `sudo docker ps -a | grep postgres`.size == 0
 #  docker_container 'postgres' do
