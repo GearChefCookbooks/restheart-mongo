@@ -1,5 +1,3 @@
-
-
 docker_image 'mongo:2.6' do
   retries 3
   retry_delay 2
@@ -12,12 +10,34 @@ docker_image 'java:8u45-jre' do
   cmd_timeout 900
 end
 
+docker_image 'restheart' do
+  retries 3
+  retry_delay 2
+  source '/var/tmp/docker/restheart'
+  tag 'latest'
+  action :build_if_missing
+  cmd_timeout 900
+end
+
+if `sudo docker ps -a | grep mongodb`.size > 0
+  execute('stop container') { command "docker stop -t 60 mongodb" }
+  execute('remove container') { command "docker rm -f mongodb" }
+end
+
 docker_container 'mongodb' do
-  image 'mongodb:2.6'
+  container_name 'mongodb'
+  image 'mongo:2.6'
   detach true
   port '27017:27017'
   volume '/var/lib/mongodb:/data/db'
 end
+
+if `sudo docker ps -a | grep restheart`.size > 0
+  execute('stop container') { command "docker stop -t 60 restheart" }
+  execute('remove container') { command "docker rm -f restheart" }
+end
+
+
 
 
 #if `sudo docker ps -a | grep postgres`.size == 0
