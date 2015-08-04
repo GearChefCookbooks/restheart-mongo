@@ -5,7 +5,7 @@
 #  cmd_timeout 900
 #end
 
-docker_image 'tutum/mongodb:2.6' do
+docker_image 'gear2000/mongodb-10gen:2.6' do
   retries 3
   retry_delay 2
   cmd_timeout 900
@@ -18,7 +18,7 @@ end
 
 docker_container 'mongodb' do
   container_name 'mongodb'
-  image 'tutum/mongodb:2.6'
+  image 'gear2000/mongodb-10gen:2.6'
   detach true
   env ["MONGODB_PASS=#{node['mongodb']['password']}"]
   port ['27017:27017','28017:28017']
