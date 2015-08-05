@@ -22,7 +22,7 @@ docker_container 'restheart' do
   image 'restheart:latest'
   container_name 'restheart'
   port ['443:443']
-  #link ['mongodb:mongodb']
+  link ['mongodb:mongodb']
   detach true
   action :run
 end
