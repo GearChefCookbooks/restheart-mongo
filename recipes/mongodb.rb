@@ -21,7 +21,7 @@ docker_container 'mongodb' do
   container_name 'mongodb'
   image 'gear2000/mongodb-10gen:2.6'
   detach true
-  env ["MONGODB_PASS=#{node['mongodb']['password']}"]
+  env ["MONGO_PASS=#{node['mongodb']['password']}"]
   port ['27017:27017','28017:28017']
   volume '/var/lib/mongodb:/data/db'
 end

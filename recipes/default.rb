@@ -35,7 +35,7 @@ docker_container 'mongodb' do
   container_name 'mongodb'
   image 'tutum/mongodb:2.6'
   detach true
-  env ["MONGODB_PASS=#{node['mongodb']['password']}"]
+  env ["MONGO_PASS=#{node['mongodb']['password']}"]
   port ['27017:27017','28017:28017']
   volume '/var/lib/mongodb:/data/db'
 end
@@ -49,7 +49,7 @@ docker_container 'restheart' do
   image 'restheart:latest'
   container_name 'restheart'
   port ['443:443','80:80']
-  env ["MONGODB_PASS=#{node['mongodb']['password']}"]
+  env ["MONGO_PASS=#{node['mongodb']['password']}"]
   link ['mongodb:mongodb']
   detach true
   action :run
